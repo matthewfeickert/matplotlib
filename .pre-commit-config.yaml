@@ -33,7 +33,6 @@ repos:
       - id: codespell
         files: ^.*\.(py|c|h|md|rst|yml)$
         args: [
-          "--write-changes",
           "--ignore-words",
           "ci/codespell-ignore-words.txt",
           "--skip",
