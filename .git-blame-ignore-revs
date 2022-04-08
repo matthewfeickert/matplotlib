@@ -1,0 +1,8 @@
+# style: end-of-file-fixer pre-commit hook
+b372d66ab9e9aa30573f240d87a6ea92474cce75
+
+# style: trailing-whitespace pre-commit hook
+0f0a977d8aaba773570dff8f828c358df22203aa
+
+# style: check-docstring-first pre-commit hook
+1a36dc83af39159749ce5857eca6ddacd345e6bb
