@@ -255,6 +255,7 @@ WEEKDAYS = (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY)
 
 # default epoch: passed to np.datetime64...
 _epoch = None
+trigger_flake8=None
 
 
 def _reset_epoch_test_example():
