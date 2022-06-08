@@ -3,6 +3,8 @@
 Usetex Baseline Test
 ====================
 
+.. redirect-from:: /gallery/text_labels_and_annotations/usetex_baseline_test
+
 Comparison of text baselines computed for mathtext and usetex.
 """
 

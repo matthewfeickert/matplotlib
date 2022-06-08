@@ -3,6 +3,8 @@
 Artist tests
 ============
 
+.. redirect-from:: /gallery/units/artist_tests
+
 Test unit support with each of the Matplotlib primitive artist types.
 
 The axis handles unit conversions and the artists keep a pointer to their axis
