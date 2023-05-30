@@ -69,11 +69,10 @@ jobs:
               - main
 
       - name: Upload wheels to Anaconda Cloud as nightlies
-        run: |
-          anaconda --token ${{ secrets.ANACONDA_ORG_UPLOAD_TOKEN }} upload \
-            --user scipy-wheels-nightly \
-            --skip-existing \
-            dist/matplotlib-*.whl
+        uses: scientific-python/upload-nightly-action@0.1.0
+        with:
+          artifacts_path: dist
+          anaconda_nightly_upload_token: ${{ secrets.ANACONDA_ORG_UPLOAD_TOKEN }}
 
       - name: Remove old uploads to save space
         run: |
