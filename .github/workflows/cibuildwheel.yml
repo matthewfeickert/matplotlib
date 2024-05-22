@@ -57,12 +57,14 @@ jobs:
           https://github.com/qhull/qhull/raw/2020.2/COPYING.txt
 
       - name: Install dependencies
-        run: uv pip install --system build twine
+        run: |
+          python -m pip install --upgrade uv
+          uv pip install --system build twine
 
       - name: Build sdist
         id: sdist
         run: |
-          python -m build --sdist
+          python -m build --installer uv --sdist
           python ci/export_sdist_name.py
 
       - name: Check README rendering for PyPI
