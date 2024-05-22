@@ -37,8 +37,8 @@ jobs:
       - name: Build compiled code
         if: matrix.language == 'c-cpp'
         run: |
-          pip install --user --upgrade pip
-          pip install --user -v .
+          python -m pip install --upgrade uv
+          uv pip install --verbose --system .
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
