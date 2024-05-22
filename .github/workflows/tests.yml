@@ -206,7 +206,7 @@ jobs:
         run: |
           # Upgrade pip and setuptools and wheel to get as clean an install as
           # possible.
-          python -m pip install --upgrade pip setuptools wheel
+          uv pip install --system --upgrade pip setuptools wheel
 
           # Install pre-release versions during our weekly upcoming dependency tests.
           if [[ "${{ github.event_name }}" == 'schedule'
@@ -216,7 +216,7 @@ jobs:
 
           # Install dependencies from PyPI.
           # Preinstall build requirements to enable no-build-isolation builds.
-          python -m pip install --upgrade $PRE \
+          uv pip install --system --upgrade $PRE \
             'contourpy>=1.0.1' cycler fonttools kiwisolver importlib_resources \
             numpy packaging pillow 'pyparsing!=3.1.0' python-dateutil setuptools-scm \
             'meson-python>=0.13.1' 'pybind11>=2.6' \
@@ -225,7 +225,7 @@ jobs:
 
           # Install optional dependencies from PyPI.
           # Sphinx is needed to run sphinxext tests
-          python -m pip install --upgrade sphinx!=6.1.2
+          uv pip install --system --upgrade sphinx!=6.1.2
 
           # GUI toolkits are pip-installable only for some versions of Python
           # so don't fail if we can't install them.  Make it easier to check
@@ -233,7 +233,7 @@ jobs:
           # (sometimes, the install appears to be successful but shared
           # libraries cannot be loaded at runtime, so an actual import is a
           # better check).
-          python -m pip install --upgrade pycairo 'cairocffi>=0.8' PyGObject &&
+          uv pip install --system --upgrade pycairo 'cairocffi>=0.8' PyGObject &&
             (
               python -c 'import gi; gi.require_version("Gtk", "4.0"); from gi.repository import Gtk' &&
               echo 'PyGObject 4 is available' || echo 'PyGObject 4 is not available'
@@ -242,7 +242,7 @@ jobs:
               echo 'PyGObject 3 is available' || echo 'PyGObject 3 is not available'
             )
 
-          python -mpip install --upgrade pyqt5${{ matrix.pyqt5-ver }} &&
+          uv pip install --system --upgrade pyqt5${{ matrix.pyqt5-ver }} &&
             python -c 'import PyQt5.QtCore' &&
             echo 'PyQt5 is available' ||
             echo 'PyQt5 is not available'
@@ -251,21 +251,21 @@ jobs:
           # on M1 macOS, so don't bother there either.
           if [[ "${{ matrix.os }}" != 'macos-14'
                 && "${{ matrix.python-version }}" != '3.12' ]]; then
-            python -mpip install --upgrade pyside2${{ matrix.pyside2-ver }} &&
+            uv pip install --system --upgrade pyside2${{ matrix.pyside2-ver }} &&
               python -c 'import PySide2.QtCore' &&
               echo 'PySide2 is available' ||
               echo 'PySide2 is not available'
           fi
-          python -mpip install --upgrade pyqt6${{ matrix.pyqt6-ver }} &&
+          uv pip install --system --upgrade pyqt6${{ matrix.pyqt6-ver }} &&
             python -c 'import PyQt6.QtCore' &&
             echo 'PyQt6 is available' ||
             echo 'PyQt6 is not available'
-          python -mpip install --upgrade pyside6${{ matrix.pyside6-ver }} &&
+          uv pip install --system --upgrade pyside6${{ matrix.pyside6-ver }} &&
             python -c 'import PySide6.QtCore' &&
             echo 'PySide6 is available' ||
             echo 'PySide6 is not available'
 
-          python -mpip install --upgrade \
+          uv pip install --system --upgrade \
             -f "https://extras.wxpython.org/wxPython4/extras/linux/gtk3/${{ matrix.os }}" \
             wxPython &&
             python -c 'import wx' &&
@@ -276,8 +276,8 @@ jobs:
         # Only install the nightly dependencies during the scheduled event
         if: github.event_name == 'schedule' && matrix.name-suffix != '(Minimum Versions)'
         run: |
-          python -m pip install pytz tzdata  # Must be installed for Pandas.
-          python -m pip install \
+          uv pip install --system pytz tzdata  # Must be installed for Pandas.
+          uv pip install --system \
             --index-url https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
             --upgrade --only-binary=:all: numpy pandas
 
@@ -295,7 +295,7 @@ jobs:
             export CPPFLAGS='--coverage -fprofile-abs-path'
           fi
 
-          python -m pip install --no-deps --no-build-isolation --verbose \
+          uv pip install --system --no-deps --no-build-isolation --verbose \
             --config-settings=setup-args="-DrcParams-backend=Agg" \
             --editable .[dev]
 

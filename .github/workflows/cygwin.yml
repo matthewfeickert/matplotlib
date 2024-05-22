@@ -172,24 +172,24 @@ jobs:
       - name: Install Python dependencies
         shell: bash.exe -eo pipefail -o igncr "{0}"
         run: |
-          python -m pip install --upgrade pip setuptools wheel
-          python -m pip install kiwisolver 'numpy>=1.22,<1.26' pillow importlib_resources
+          uv pip install --system --upgrade pip setuptools wheel
+          uv pip install --system kiwisolver 'numpy>=1.22,<1.26' pillow importlib_resources
           grep -v -F -e psutil requirements/testing/all.txt >requirements_test.txt
-          python -m pip install meson-python pybind11
+          uv pip install --system meson-python pybind11
           export PATH="/usr/local/bin:$PATH"
-          python -m pip install --no-build-isolation 'contourpy>=1.0.1'
-          python -m pip install --upgrade cycler fonttools \
+          uv pip install --system --no-build-isolation 'contourpy>=1.0.1'
+          uv pip install --system --upgrade cycler fonttools \
               packaging pyparsing python-dateutil setuptools-scm \
               -r requirements_test.txt sphinx ipython
-          python -m pip install --upgrade pycairo 'cairocffi>=0.8' PyGObject &&
+          uv pip install --system --upgrade pycairo 'cairocffi>=0.8' PyGObject &&
              python -c 'import gi; gi.require_version("Gtk", "3.0"); from gi.repository import Gtk' &&
              echo 'PyGObject is available' ||
              echo 'PyGObject is not available'
-          python -m pip install --upgrade pyqt5  &&
+          uv pip install --system --upgrade pyqt5  &&
              python -c 'import PyQt5.QtCore' &&
              echo 'PyQt5 is available' ||
              echo 'PyQt5 is not available'
-          python -mpip install --upgrade pyside2 &&
+          uv pip install --system --upgrade pyside2 &&
               python -c 'import PySide2.QtCore' &&
               echo 'PySide2 is available' ||
               echo 'PySide2 is not available'
@@ -206,7 +206,7 @@ jobs:
           git describe
           # All dependencies must have been pre-installed, so that the minver
           # constraints are held.
-          python -m pip install --no-deps --no-build-isolation --verbose \
+          uv pip install --system --no-deps --no-build-isolation --verbose \
             --config-settings=setup-args="-DrcParams-backend=Agg" \
             --editable .[dev]
 

@@ -57,7 +57,7 @@ jobs:
           https://github.com/qhull/qhull/raw/2020.2/COPYING.txt
 
       - name: Install dependencies
-        run: python -m pip install build twine
+        run: uv pip install --system build twine
 
       - name: Build sdist
         id: sdist
