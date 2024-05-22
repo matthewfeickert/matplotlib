@@ -212,7 +212,7 @@ jobs:
           # Install pre-release versions during our weekly upcoming dependency tests.
           if [[ "${{ github.event_name }}" == 'schedule'
                 && "${{ matrix.name-suffix }}" != '(Minimum Versions)' ]]; then
-            PRE="--pre"
+            PRE="--prerelease"
           fi
 
           # Install dependencies from PyPI.
