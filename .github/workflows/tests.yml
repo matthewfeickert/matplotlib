@@ -206,6 +206,7 @@ jobs:
         run: |
           # Upgrade pip and setuptools and wheel to get as clean an install as
           # possible.
+          python -m pip install --upgrade uv
           uv pip install --system --upgrade pip setuptools wheel
 
           # Install pre-release versions during our weekly upcoming dependency tests.
